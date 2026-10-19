@@ -3,26 +3,35 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.14.37806.7
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ecommerce", "Ecommerce\Ecommerce.csproj", "{CBB829F5-90C5-480E-8999-D1E8AD2F1992}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Elementos de la solución", "Elementos de la solución", "{D107F4C8-89CC-BEA8-D3D7-CA6B7733353D}"
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{489F4EC0-6E71-4A14-8F1B-28C9A754B06D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Products.API", "Products.API", "{500A295F-5757-4AB0-8C79-99A3EA513EC4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Orders.API", "Orders.API", "{9D3CAD79-3C88-44CE-8C81-1A2DD1CE78C4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Cart.API", "Cart.API", "{D8B84628-95E7-4F5C-BC1C-4EF2DB55302F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Notifications.API", "Notifications.API", "{A8E02500-D472-4EF6-B94D-1A61B5587D10}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Users.API", "Users.API", "{443484C4-B397-4234-9C7F-A5F548D5DE6B}"
+EndProject
 Global
-	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Any CPU = Debug|Any CPU
-		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{CBB829F5-90C5-480E-8999-D1E8AD2F1992}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CBB829F5-90C5-480E-8999-D1E8AD2F1992}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CBB829F5-90C5-480E-8999-D1E8AD2F1992}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CBB829F5-90C5-480E-8999-D1E8AD2F1992}.Release|Any CPU.Build.0 = Release|Any CPU
-	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{500A295F-5757-4AB0-8C79-99A3EA513EC4} = {489F4EC0-6E71-4A14-8F1B-28C9A754B06D}
+		{9D3CAD79-3C88-44CE-8C81-1A2DD1CE78C4} = {489F4EC0-6E71-4A14-8F1B-28C9A754B06D}
+		{D8B84628-95E7-4F5C-BC1C-4EF2DB55302F} = {489F4EC0-6E71-4A14-8F1B-28C9A754B06D}
+		{A8E02500-D472-4EF6-B94D-1A61B5587D10} = {489F4EC0-6E71-4A14-8F1B-28C9A754B06D}
+		{443484C4-B397-4234-9C7F-A5F548D5DE6B} = {489F4EC0-6E71-4A14-8F1B-28C9A754B06D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7A82C224-BF13-4803-A888-BD15479BB9CD}
