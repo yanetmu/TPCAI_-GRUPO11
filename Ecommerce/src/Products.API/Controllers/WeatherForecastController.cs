@@ -1,5 +1,7 @@
+
 using Microsoft.AspNetCore.Mvc;
 using Products.API.models;
+using Products.API.service;
 
 namespace Products.API.Controllers
 {
@@ -7,18 +9,33 @@ namespace Products.API.Controllers
     [Route("api/products")]
     public class ProductsController : ControllerBase
     {
+        private readonly ProductService _productService;
+
+        public ProductsController()
+        {
+            _productService = new ProductService();
+        }
+
         // GET: api/products
         [HttpGet]
         public IActionResult GetAll()
         {
-            return Ok("Endpoint para obtener todos los productos");
+            return Ok(_productService.ObtenerTodos());
         }
 
         // GET: api/products/{id}
         [HttpGet("{id:guid}")]
         public IActionResult GetById(Guid id)
         {
-            return Ok("Endpoint para obtener un producto por ID");
+            Product? producto = _productService.ObtenerPorId(id);
+
+            if (producto == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(producto);
         }
     }
 }
+
