@@ -64,6 +64,28 @@ namespace Products.API.Controllers
         }
 
 
+
+        // PUT: api/products/{id}
+        [HttpPut("{id:guid}")]
+        public IActionResult Update(Guid id, Product producto)
+        {
+            bool actualizado = _productService.Actualizar(id, producto);
+
+            if (!actualizado)
+            {
+                return NotFound(new
+                {
+                    errorCode = "PRD-001",
+                    errorMessage = "No se encontró el producto."
+                });
+            }
+
+            return Ok(producto);
+        }
+
+
+
+
     }
 }
 
