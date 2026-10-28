@@ -1,7 +1,19 @@
-
+using Serilog;
 using Products.API.ExceptionHandlers;
 
 var builder = WebApplication.CreateBuilder(args);
+
+
+Log.Logger = new LoggerConfiguration()
+    .MinimumLevel.Information()
+    .WriteTo.Console()
+    .WriteTo.File(
+        new Serilog.Formatting.Json.JsonFormatter(),
+        "logs/products-.json",
+        rollingInterval: RollingInterval.Day)
+    .CreateLogger();
+
+builder.Host.UseSerilog();
 
 builder.Services.AddControllers();
 builder.Services.AddHealthChecks();
