@@ -3,7 +3,7 @@
 namespace Products.API.models
 {
     //
-    public class Products
+    public class Product
     {
         public Guid Id { get; set; }
 

@@ -1,41 +1,3 @@
-C:\Users\luchi\source\repos\TPCAI_-GRUPO11\Ecommerce\Products.API\bin\Debug\net10.0\appsettings.Development.json
-C:\Users\luchi\source\repos\TPCAI_-GRUPO11\Ecommerce\Products.API\bin\Debug\net10.0\appsettings.json
-C:\Users\luchi\source\repos\TPCAI_-GRUPO11\Ecommerce\Products.API\bin\Debug\net10.0\Products.API.staticwebassets.endpoints.json
-C:\Users\luchi\source\repos\TPCAI_-GRUPO11\Ecommerce\Products.API\bin\Debug\net10.0\Products.API.exe
-C:\Users\luchi\source\repos\TPCAI_-GRUPO11\Ecommerce\Products.API\bin\Debug\net10.0\Products.API.deps.json
-C:\Users\luchi\source\repos\TPCAI_-GRUPO11\Ecommerce\Products.API\bin\Debug\net10.0\Products.API.runtimeconfig.json
-C:\Users\luchi\source\repos\TPCAI_-GRUPO11\Ecommerce\Products.API\bin\Debug\net10.0\Products.API.dll
-C:\Users\luchi\source\repos\TPCAI_-GRUPO11\Ecommerce\Products.API\bin\Debug\net10.0\Products.API.pdb
-C:\Users\luchi\source\repos\TPCAI_-GRUPO11\Ecommerce\Products.API\bin\Debug\net10.0\Microsoft.AspNetCore.OpenApi.dll
-C:\Users\luchi\source\repos\TPCAI_-GRUPO11\Ecommerce\Products.API\bin\Debug\net10.0\Microsoft.OpenApi.dll
-C:\Users\luchi\source\repos\TPCAI_-GRUPO11\Ecommerce\Products.API\obj\Debug\net10.0\Products.API.csproj.AssemblyReference.cache
-C:\Users\luchi\source\repos\TPCAI_-GRUPO11\Ecommerce\Products.API\obj\Debug\net10.0\rpswa.dswa.cache.json
-C:\Users\luchi\source\repos\TPCAI_-GRUPO11\Ecommerce\Products.API\obj\Debug\net10.0\Products.API.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\luchi\source\repos\TPCAI_-GRUPO11\Ecommerce\Products.API\obj\Debug\net10.0\Products.API.AssemblyInfoInputs.cache
-C:\Users\luchi\source\repos\TPCAI_-GRUPO11\Ecommerce\Products.API\obj\Debug\net10.0\Products.API.AssemblyInfo.cs
-C:\Users\luchi\source\repos\TPCAI_-GRUPO11\Ecommerce\Products.API\obj\Debug\net10.0\Products.API.csproj.CoreCompileInputs.cache
-C:\Users\luchi\source\repos\TPCAI_-GRUPO11\Ecommerce\Products.API\obj\Debug\net10.0\Products.API.MvcApplicationPartsAssemblyInfo.cs
-C:\Users\luchi\source\repos\TPCAI_-GRUPO11\Ecommerce\Products.API\obj\Debug\net10.0\Products.API.MvcApplicationPartsAssemblyInfo.cache
-C:\Users\luchi\source\repos\TPCAI_-GRUPO11\Ecommerce\Products.API\obj\Debug\net10.0\Products.API.sourcelink.json
-C:\Users\luchi\source\repos\TPCAI_-GRUPO11\Ecommerce\Products.API\obj\Debug\net10.0\rjimswa.dswa.cache.json
-C:\Users\luchi\source\repos\TPCAI_-GRUPO11\Ecommerce\Products.API\obj\Debug\net10.0\rjsmrazor.dswa.cache.json
-C:\Users\luchi\source\repos\TPCAI_-GRUPO11\Ecommerce\Products.API\obj\Debug\net10.0\rjsmcshtml.dswa.cache.json
-C:\Users\luchi\source\repos\TPCAI_-GRUPO11\Ecommerce\Products.API\obj\Debug\net10.0\scopedcss\bundle\Products.API.styles.css
-C:\Users\luchi\source\repos\TPCAI_-GRUPO11\Ecommerce\Products.API\obj\Debug\net10.0\staticwebassets.build.json
-C:\Users\luchi\source\repos\TPCAI_-GRUPO11\Ecommerce\Products.API\obj\Debug\net10.0\staticwebassets.build.json.cache
-C:\Users\luchi\source\repos\TPCAI_-GRUPO11\Ecommerce\Products.API\obj\Debug\net10.0\staticwebassets.development.json
-C:\Users\luchi\source\repos\TPCAI_-GRUPO11\Ecommerce\Products.API\obj\Debug\net10.0\staticwebassets.build.endpoints.json
-C:\Users\luchi\source\repos\TPCAI_-GRUPO11\Ecommerce\Products.API\obj\Debug\net10.0\swae.build.ex.cache
-C:\Users\luchi\source\repos\TPCAI_-GRUPO11\Ecommerce\Products.API\obj\Debug\net10.0\staticwebassets.upToDateCheck.txt
-C:\Users\luchi\source\repos\TPCAI_-GRUPO11\Ecommerce\Products.API\obj\Debug\net10.0\Products.AB81CF28.Up2Date
-C:\Users\luchi\source\repos\TPCAI_-GRUPO11\Ecommerce\Products.API\obj\Debug\net10.0\Products.API.dll
-C:\Users\luchi\source\repos\TPCAI_-GRUPO11\Ecommerce\Products.API\obj\Debug\net10.0\refint\Products.API.dll
-C:\Users\luchi\source\repos\TPCAI_-GRUPO11\Ecommerce\Products.API\obj\Debug\net10.0\Products.API.pdb
-C:\Users\luchi\source\repos\TPCAI_-GRUPO11\Ecommerce\Products.API\obj\Debug\net10.0\Products.API.genruntimeconfig.cache
-C:\Users\luchi\source\repos\TPCAI_-GRUPO11\Ecommerce\Products.API\obj\Debug\net10.0\ref\Products.API.dll
-C:\Users\luchi\source\repos\TPCAI_-GRUPO11\Ecommerce\Products.API\bin\Debug\net10.0\Swashbuckle.AspNetCore.Swagger.dll
-C:\Users\luchi\source\repos\TPCAI_-GRUPO11\Ecommerce\Products.API\bin\Debug\net10.0\Swashbuckle.AspNetCore.SwaggerGen.dll
-C:\Users\luchi\source\repos\TPCAI_-GRUPO11\Ecommerce\Products.API\bin\Debug\net10.0\Swashbuckle.AspNetCore.SwaggerUI.dll
 C:\Users\luchi\source\repos\TPCAI_-GRUPO11\Ecommerce\src\Products.API\bin\Debug\net10.0\appsettings.Development.json
 C:\Users\luchi\source\repos\TPCAI_-GRUPO11\Ecommerce\src\Products.API\bin\Debug\net10.0\appsettings.json
 C:\Users\luchi\source\repos\TPCAI_-GRUPO11\Ecommerce\src\Products.API\bin\Debug\net10.0\Products.API.staticwebassets.endpoints.json
@@ -45,7 +7,17 @@ C:\Users\luchi\source\repos\TPCAI_-GRUPO11\Ecommerce\src\Products.API\bin\Debug\
 C:\Users\luchi\source\repos\TPCAI_-GRUPO11\Ecommerce\src\Products.API\bin\Debug\net10.0\Products.API.dll
 C:\Users\luchi\source\repos\TPCAI_-GRUPO11\Ecommerce\src\Products.API\bin\Debug\net10.0\Products.API.pdb
 C:\Users\luchi\source\repos\TPCAI_-GRUPO11\Ecommerce\src\Products.API\bin\Debug\net10.0\Microsoft.AspNetCore.OpenApi.dll
+C:\Users\luchi\source\repos\TPCAI_-GRUPO11\Ecommerce\src\Products.API\bin\Debug\net10.0\Microsoft.Extensions.DependencyModel.dll
 C:\Users\luchi\source\repos\TPCAI_-GRUPO11\Ecommerce\src\Products.API\bin\Debug\net10.0\Microsoft.OpenApi.dll
+C:\Users\luchi\source\repos\TPCAI_-GRUPO11\Ecommerce\src\Products.API\bin\Debug\net10.0\Serilog.dll
+C:\Users\luchi\source\repos\TPCAI_-GRUPO11\Ecommerce\src\Products.API\bin\Debug\net10.0\Serilog.AspNetCore.dll
+C:\Users\luchi\source\repos\TPCAI_-GRUPO11\Ecommerce\src\Products.API\bin\Debug\net10.0\Serilog.Extensions.Hosting.dll
+C:\Users\luchi\source\repos\TPCAI_-GRUPO11\Ecommerce\src\Products.API\bin\Debug\net10.0\Serilog.Extensions.Logging.dll
+C:\Users\luchi\source\repos\TPCAI_-GRUPO11\Ecommerce\src\Products.API\bin\Debug\net10.0\Serilog.Formatting.Compact.dll
+C:\Users\luchi\source\repos\TPCAI_-GRUPO11\Ecommerce\src\Products.API\bin\Debug\net10.0\Serilog.Settings.Configuration.dll
+C:\Users\luchi\source\repos\TPCAI_-GRUPO11\Ecommerce\src\Products.API\bin\Debug\net10.0\Serilog.Sinks.Console.dll
+C:\Users\luchi\source\repos\TPCAI_-GRUPO11\Ecommerce\src\Products.API\bin\Debug\net10.0\Serilog.Sinks.Debug.dll
+C:\Users\luchi\source\repos\TPCAI_-GRUPO11\Ecommerce\src\Products.API\bin\Debug\net10.0\Serilog.Sinks.File.dll
 C:\Users\luchi\source\repos\TPCAI_-GRUPO11\Ecommerce\src\Products.API\bin\Debug\net10.0\Swashbuckle.AspNetCore.Swagger.dll
 C:\Users\luchi\source\repos\TPCAI_-GRUPO11\Ecommerce\src\Products.API\bin\Debug\net10.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 C:\Users\luchi\source\repos\TPCAI_-GRUPO11\Ecommerce\src\Products.API\bin\Debug\net10.0\Swashbuckle.AspNetCore.SwaggerUI.dll
@@ -74,55 +46,4 @@ C:\Users\luchi\source\repos\TPCAI_-GRUPO11\Ecommerce\src\Products.API\obj\Debug\
 C:\Users\luchi\source\repos\TPCAI_-GRUPO11\Ecommerce\src\Products.API\obj\Debug\net10.0\Products.API.pdb
 C:\Users\luchi\source\repos\TPCAI_-GRUPO11\Ecommerce\src\Products.API\obj\Debug\net10.0\Products.API.genruntimeconfig.cache
 C:\Users\luchi\source\repos\TPCAI_-GRUPO11\Ecommerce\src\Products.API\obj\Debug\net10.0\ref\Products.API.dll
-C:\Users\Yanet\OneDrive\Desktop\TP CAI_ GRUPO 11\Ecommerce\src\Products.API\bin\Debug\net10.0\appsettings.Development.json
-C:\Users\Yanet\OneDrive\Desktop\TP CAI_ GRUPO 11\Ecommerce\src\Products.API\bin\Debug\net10.0\appsettings.json
-C:\Users\Yanet\OneDrive\Desktop\TP CAI_ GRUPO 11\Ecommerce\src\Products.API\bin\Debug\net10.0\Products.API.staticwebassets.runtime.json
-C:\Users\Yanet\OneDrive\Desktop\TP CAI_ GRUPO 11\Ecommerce\src\Products.API\bin\Debug\net10.0\Products.API.staticwebassets.endpoints.json
-C:\Users\Yanet\OneDrive\Desktop\TP CAI_ GRUPO 11\Ecommerce\src\Products.API\bin\Debug\net10.0\Products.API.exe
-C:\Users\Yanet\OneDrive\Desktop\TP CAI_ GRUPO 11\Ecommerce\src\Products.API\bin\Debug\net10.0\Products.API.deps.json
-C:\Users\Yanet\OneDrive\Desktop\TP CAI_ GRUPO 11\Ecommerce\src\Products.API\bin\Debug\net10.0\Products.API.runtimeconfig.json
-C:\Users\Yanet\OneDrive\Desktop\TP CAI_ GRUPO 11\Ecommerce\src\Products.API\bin\Debug\net10.0\Products.API.runtimeconfig.dev.json
-C:\Users\Yanet\OneDrive\Desktop\TP CAI_ GRUPO 11\Ecommerce\src\Products.API\bin\Debug\net10.0\Products.API.dll
-C:\Users\Yanet\OneDrive\Desktop\TP CAI_ GRUPO 11\Ecommerce\src\Products.API\bin\Debug\net10.0\Products.API.pdb
-C:\Users\Yanet\OneDrive\Desktop\TP CAI_ GRUPO 11\Ecommerce\src\Products.API\bin\Debug\net10.0\Microsoft.AspNetCore.OpenApi.dll
-C:\Users\Yanet\OneDrive\Desktop\TP CAI_ GRUPO 11\Ecommerce\src\Products.API\bin\Debug\net10.0\Microsoft.OpenApi.dll
-C:\Users\Yanet\OneDrive\Desktop\TP CAI_ GRUPO 11\Ecommerce\src\Products.API\bin\Debug\net10.0\Swashbuckle.AspNetCore.Swagger.dll
-C:\Users\Yanet\OneDrive\Desktop\TP CAI_ GRUPO 11\Ecommerce\src\Products.API\bin\Debug\net10.0\Swashbuckle.AspNetCore.SwaggerGen.dll
-C:\Users\Yanet\OneDrive\Desktop\TP CAI_ GRUPO 11\Ecommerce\src\Products.API\bin\Debug\net10.0\Swashbuckle.AspNetCore.SwaggerUI.dll
-C:\Users\Yanet\OneDrive\Desktop\TP CAI_ GRUPO 11\Ecommerce\src\Products.API\obj\Debug\net10.0\Products.API.csproj.AssemblyReference.cache
-C:\Users\Yanet\OneDrive\Desktop\TP CAI_ GRUPO 11\Ecommerce\src\Products.API\obj\Debug\net10.0\dotnet-watch\Microsoft.NET.Sdk.BlazorWeb.DotNetWatch.lib.module.js
-C:\Users\Yanet\OneDrive\Desktop\TP CAI_ GRUPO 11\Ecommerce\src\Products.API\obj\Debug\net10.0\dotnet-watch\Microsoft.NET.Sdk.BlazorWeb.DotNetWatch.BrowserTools.js
-C:\Users\Yanet\OneDrive\Desktop\TP CAI_ GRUPO 11\Ecommerce\src\Products.API\obj\Debug\net10.0\dotnet-watch\Microsoft.NET.Sdk.BlazorWeb.DotNetWatch.BrowserTools.Config.js
-C:\Users\Yanet\OneDrive\Desktop\TP CAI_ GRUPO 11\Ecommerce\src\Products.API\obj\Debug\net10.0\dotnet-watch\browser-tools-key.public.json
-C:\Users\Yanet\OneDrive\Desktop\TP CAI_ GRUPO 11\Ecommerce\src\Products.API\obj\Debug\net10.0\dotnet-watch\browser-tools-key.private.json
-C:\Users\Yanet\OneDrive\Desktop\TP CAI_ GRUPO 11\Ecommerce\src\Products.API\obj\Debug\net10.0\rpswa.dswa.cache.json
-C:\Users\Yanet\OneDrive\Desktop\TP CAI_ GRUPO 11\Ecommerce\src\Products.API\obj\Debug\net10.0\Products.API.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\Yanet\OneDrive\Desktop\TP CAI_ GRUPO 11\Ecommerce\src\Products.API\obj\Debug\net10.0\Products.API.AssemblyInfoInputs.cache
-C:\Users\Yanet\OneDrive\Desktop\TP CAI_ GRUPO 11\Ecommerce\src\Products.API\obj\Debug\net10.0\Products.API.AssemblyInfo.cs
-C:\Users\Yanet\OneDrive\Desktop\TP CAI_ GRUPO 11\Ecommerce\src\Products.API\obj\Debug\net10.0\Products.API.csproj.CoreCompileInputs.cache
-C:\Users\Yanet\OneDrive\Desktop\TP CAI_ GRUPO 11\Ecommerce\src\Products.API\obj\Debug\net10.0\Products.API.MvcApplicationPartsAssemblyInfo.cs
-C:\Users\Yanet\OneDrive\Desktop\TP CAI_ GRUPO 11\Ecommerce\src\Products.API\obj\Debug\net10.0\Products.API.MvcApplicationPartsAssemblyInfo.cache
-C:\Users\Yanet\OneDrive\Desktop\TP CAI_ GRUPO 11\Ecommerce\src\Products.API\obj\Debug\net10.0\Products.API.sourcelink.json
-C:\Users\Yanet\OneDrive\Desktop\TP CAI_ GRUPO 11\Ecommerce\src\Products.API\obj\Debug\net10.0\rjimswa.dswa.cache.json
-C:\Users\Yanet\OneDrive\Desktop\TP CAI_ GRUPO 11\Ecommerce\src\Products.API\obj\Debug\net10.0\rjsmrazor.dswa.cache.json
-C:\Users\Yanet\OneDrive\Desktop\TP CAI_ GRUPO 11\Ecommerce\src\Products.API\obj\Debug\net10.0\rjsmcshtml.dswa.cache.json
-C:\Users\Yanet\OneDrive\Desktop\TP CAI_ GRUPO 11\Ecommerce\src\Products.API\obj\Debug\net10.0\jsmodules\jsmodules.build.manifest.json
-C:\Users\Yanet\OneDrive\Desktop\TP CAI_ GRUPO 11\Ecommerce\src\Products.API\obj\Debug\net10.0\scopedcss\scopedcss.cache
-C:\Users\Yanet\OneDrive\Desktop\TP CAI_ GRUPO 11\Ecommerce\src\Products.API\obj\Debug\net10.0\scopedcss\bundle\Products.API.styles.css
-C:\Users\Yanet\OneDrive\Desktop\TP CAI_ GRUPO 11\Ecommerce\src\Products.API\obj\Debug\net10.0\compressed\2kj4m5tdxv-{0}-s9y91u5nkn-s9y91u5nkn.gz
-C:\Users\Yanet\OneDrive\Desktop\TP CAI_ GRUPO 11\Ecommerce\src\Products.API\obj\Debug\net10.0\compressed\2q5f1f9ll7-{0}-7oqwd96s0p-7oqwd96s0p.gz
-C:\Users\Yanet\OneDrive\Desktop\TP CAI_ GRUPO 11\Ecommerce\src\Products.API\obj\Debug\net10.0\compressed\wsy2uu7b9d-{0}-lvkpp2i49p-lvkpp2i49p.gz
-C:\Users\Yanet\OneDrive\Desktop\TP CAI_ GRUPO 11\Ecommerce\src\Products.API\obj\Debug\net10.0\compressed\dldpxke8ai-{0}-scyj3pnqhf-scyj3pnqhf.gz
-C:\Users\Yanet\OneDrive\Desktop\TP CAI_ GRUPO 11\Ecommerce\src\Products.API\obj\Debug\net10.0\staticwebassets.build.json
-C:\Users\Yanet\OneDrive\Desktop\TP CAI_ GRUPO 11\Ecommerce\src\Products.API\obj\Debug\net10.0\staticwebassets.build.json.cache
-C:\Users\Yanet\OneDrive\Desktop\TP CAI_ GRUPO 11\Ecommerce\src\Products.API\obj\Debug\net10.0\staticwebassets.development.json
-C:\Users\Yanet\OneDrive\Desktop\TP CAI_ GRUPO 11\Ecommerce\src\Products.API\obj\Debug\net10.0\staticwebassets.build.endpoints.json
-C:\Users\Yanet\OneDrive\Desktop\TP CAI_ GRUPO 11\Ecommerce\src\Products.API\obj\Debug\net10.0\swae.build.ex.cache
-C:\Users\Yanet\OneDrive\Desktop\TP CAI_ GRUPO 11\Ecommerce\src\Products.API\obj\Debug\net10.0\staticwebassets.upToDateCheck.txt
-C:\Users\Yanet\OneDrive\Desktop\TP CAI_ GRUPO 11\Ecommerce\src\Products.API\obj\Debug\net10.0\Products.AB81CF28.Up2Date
-C:\Users\Yanet\OneDrive\Desktop\TP CAI_ GRUPO 11\Ecommerce\src\Products.API\obj\Debug\net10.0\Products.API.dll
-C:\Users\Yanet\OneDrive\Desktop\TP CAI_ GRUPO 11\Ecommerce\src\Products.API\obj\Debug\net10.0\refint\Products.API.dll
-C:\Users\Yanet\OneDrive\Desktop\TP CAI_ GRUPO 11\Ecommerce\src\Products.API\obj\Debug\net10.0\Products.API.pdb
-C:\Users\Yanet\OneDrive\Desktop\TP CAI_ GRUPO 11\Ecommerce\src\Products.API\obj\Debug\net10.0\Products.API.genruntimeconfig.cache
-C:\Users\Yanet\OneDrive\Desktop\TP CAI_ GRUPO 11\Ecommerce\src\Products.API\obj\Debug\net10.0\ref\Products.API.dll
-C:\Users\luchi\source\repos\TPCAI_-GRUPO11\Ecommerce\src\Products.API\bin\Debug\net10.0\Products.API.staticwebassets.runtime.json
+C:\Users\luchi\source\repos\TPCAI_-GRUPO11\Ecommerce\src\Products.API\bin\Debug\net10.0\logs\products-20261028.json
