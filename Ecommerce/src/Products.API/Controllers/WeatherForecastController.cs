@@ -64,12 +64,6 @@ namespace Products.API.Controllers
         }
 
 
-
-
-
-
-
-
     }
 }
 
