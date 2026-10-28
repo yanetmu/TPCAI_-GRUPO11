@@ -84,6 +84,24 @@ namespace Products.API.Controllers
         }
 
 
+        // DELETE: api/products/{id}
+        [HttpDelete("{id:guid}")]
+        public IActionResult Delete(Guid id)
+        {
+            bool eliminado = _productService.Eliminar(id);
+
+            if (!eliminado)
+            {
+                return NotFound(new
+                {
+                    errorCode = "PRD-001",
+                    errorMessage = "No se encontró el producto."
+                });
+            }
+
+            return Ok("Producto eliminado correctamente.");
+        }
+
 
 
     }
