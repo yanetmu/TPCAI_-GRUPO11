@@ -36,6 +36,40 @@ namespace Products.API.Controllers
 
             return Ok(producto);
         }
+
+
+
+
+
+        // POST: api/products
+        [HttpPost]
+        public IActionResult Create(Product producto)
+        {
+            bool agregado = _productService.Agregar(producto);
+
+            if (!agregado)
+            {
+                return Conflict(new
+                {
+                    errorCode = "PRD-003",
+                    errorMessage = "Ya existe un producto con ese nombre en esa categoría."
+                });
+            }
+
+            return CreatedAtAction(
+                nameof(GetById),
+                new { id = producto.Id },
+                producto
+            );
+        }
+
+
+
+
+
+
+
+
     }
 }
 
