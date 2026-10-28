@@ -1,11 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "TR0wRrjQk2M=",
+  "dgSpecHash": "Hc4ynIKwTNM=",
   "success": true,
-  "projectFilePath": "C:\\Users\\Yanet\\OneDrive\\Desktop\\TP CAI_ GRUPO 11\\Ecommerce\\src\\Notifications.API\\Notifications.API.csproj",
+  "projectFilePath": "C:\\Users\\luchi\\source\\repos\\TPCAI_-GRUPO11\\Ecommerce\\src\\Notifications.API\\Notifications.API.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\Yanet\\.nuget\\packages\\microsoft.aspnetcore.openapi\\10.0.13\\microsoft.aspnetcore.openapi.10.0.13.nupkg.sha512",
-    "C:\\Users\\Yanet\\.nuget\\packages\\microsoft.openapi\\2.12.2\\microsoft.openapi.2.12.2.nupkg.sha512"
+    "C:\\Users\\luchi\\.nuget\\packages\\microsoft.aspnetcore.openapi\\10.0.13\\microsoft.aspnetcore.openapi.10.0.13.nupkg.sha512",
+    "C:\\Users\\luchi\\.nuget\\packages\\microsoft.openapi\\2.12.2\\microsoft.openapi.2.12.2.nupkg.sha512"
   ],
   "logs": []
 }

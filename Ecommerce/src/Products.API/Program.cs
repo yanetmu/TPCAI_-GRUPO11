@@ -1,7 +1,8 @@
-
+using Serilog;
 using Products.API.ExceptionHandlers;
 
 var builder = WebApplication.CreateBuilder(args);
+
 
 builder.Services.AddControllers();
 builder.Services.AddHealthChecks();
