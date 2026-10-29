@@ -24,7 +24,7 @@ namespace Products.API.Controllers
         }
 
         // GET: api/products/{id}
-        [HttpGet("{id:guid}")]
+        [HttpGet("{id:int}")]
         public IActionResult GetById(int id)
         {
             Product? producto = _productService.ObtenerPorId(id);
@@ -102,7 +102,7 @@ namespace Products.API.Controllers
             return Ok("Producto eliminado correctamente.");
         }
 
-
+           
 
     }
 }
