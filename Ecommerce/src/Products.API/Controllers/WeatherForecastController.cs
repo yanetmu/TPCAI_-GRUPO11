@@ -11,16 +11,51 @@ namespace Products.API.Controllers
     {
         private readonly ProductService _productService;
 
-        public ProductsController()
+        public ProductsController(ProductService productService)
         {
-            _productService = new ProductService();
+            _productService = productService;
         }
 
         // GET: api/products
         [HttpGet]
-        public IActionResult GetAll()
+        public IActionResult GetAll(
+        [FromQuery] string? categoria,
+        [FromQuery] string? nombre)
         {
-            return Ok(_productService.ObtenerTodos());
+            var productos = _productService.ObtenerTodos();
+
+            if (!string.IsNullOrWhiteSpace(categoria))
+            {
+                productos = productos
+                    .Where(p => p.Categoria.Equals(
+                        categoria,
+                        StringComparison.OrdinalIgnoreCase))
+                    .ToList();
+            }
+
+            if (!string.IsNullOrWhiteSpace(nombre))
+            {
+                productos = productos
+                    .Where(p => p.Nombre.Contains(
+                        nombre,
+                        StringComparison.OrdinalIgnoreCase))
+                    .ToList();
+            }
+
+            return Ok(productos);
+        }
+
+        //GET: api/products/category/{categoria}
+        [HttpGet("category/{categoria}")]
+        public IActionResult GetByCategory(string categoria)
+        {
+            var productos =
+                _productService.ObtenerTodos()
+                .Where(p => p.Categoria.Equals(categoria,
+
+                StringComparison.OrdinalIgnoreCase)).ToList();
+
+            return Ok(productos);
         }
 
         // GET: api/products/{id}
@@ -37,9 +72,6 @@ namespace Products.API.Controllers
 
             return Ok(producto);
         }
-
-
-
 
 
         // POST: api/products

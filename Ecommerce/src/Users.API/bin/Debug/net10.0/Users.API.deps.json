@@ -21,7 +21,8 @@
         "runtime": {
           "lib/net10.0/Microsoft.AspNetCore.OpenApi.dll": {
             "assemblyVersion": "10.0.13.0",
-            "fileVersion": "10.0.1326.50504"
+            "fileVersion": "10.0.1326.50504",
+            "localPath": "Microsoft.AspNetCore.OpenApi.dll"
           }
         }
       },
@@ -29,7 +30,8 @@
         "runtime": {
           "lib/net8.0/Microsoft.OpenApi.dll": {
             "assemblyVersion": "2.12.2.0",
-            "fileVersion": "2.12.2.0"
+            "fileVersion": "2.12.2.0",
+            "localPath": "Microsoft.OpenApi.dll"
           }
         }
       }

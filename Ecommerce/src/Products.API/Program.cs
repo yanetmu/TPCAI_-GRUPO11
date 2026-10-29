@@ -1,8 +1,10 @@
-using Serilog;
 using Products.API.ExceptionHandlers;
+using Products.API.service;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddSingleton<ProductService>();
 
 Log.Logger = new LoggerConfiguration()
     .MinimumLevel.Information()
