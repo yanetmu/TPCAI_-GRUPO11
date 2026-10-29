@@ -24,10 +24,11 @@ namespace Products.API.Controllers
         }
 
         // GET: api/products/{id}
-        [HttpGet("{id:int}")]
-        public IActionResult GetById(int id)
+        [HttpGet("{id:guid}")]
+        public IActionResult GetById(Guid id)
         {
             Product? producto = _productService.ObtenerPorId(id);
+
 
             if (producto == null)
             {
@@ -66,8 +67,8 @@ namespace Products.API.Controllers
 
 
         // PUT: api/products/{id}
-        [HttpPut("{id:int}")]
-        public IActionResult Update(int id, Product producto)
+        [HttpPut("{id:guid}")]
+        public IActionResult Update(Guid id, Product producto)
         {
             bool actualizado = _productService.Actualizar(id, producto);
 
@@ -85,8 +86,8 @@ namespace Products.API.Controllers
 
 
         // DELETE: api/products/{id}
-        [HttpDelete("{id:int}")]
-        public IActionResult Delete(int id)
+        [HttpDelete("{id:guid}")]
+        public IActionResult Delete(Guid id)
         {
             bool eliminado = _productService.Eliminar(id);
 
