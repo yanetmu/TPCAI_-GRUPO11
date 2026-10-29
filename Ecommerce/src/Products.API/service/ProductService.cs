@@ -11,7 +11,7 @@ namespace Products.API.service
             return productos;
         }
 
-        public Product? ObtenerPorId(Guid id)
+        public Product ObtenerPorId(int id)
         {
             foreach (Product producto in productos)
             {
@@ -35,7 +35,7 @@ namespace Products.API.service
                 }
             }
 
-            producto.Id = Guid.NewGuid();
+            producto.Id = productos.Count + 1;
             producto.FechaCreacion = DateTime.UtcNow;
 
             productos.Add(producto);
@@ -48,9 +48,9 @@ namespace Products.API.service
 
 
 
-        public bool Actualizar(Guid id, Product producto)
+        public bool Actualizar(int id, Product producto)
         {
-            Product? productoExistente = ObtenerPorId(id);
+            Product productoExistente = ObtenerPorId(id);
 
             if (productoExistente == null)
             {
@@ -66,9 +66,9 @@ namespace Products.API.service
             return true;
         }
 
-        public bool Eliminar(Guid id)
+        public bool Eliminar(int id)
         {
-            Product? producto = ObtenerPorId(id);
+            Product producto = ObtenerPorId(id);
 
             if (producto == null)
             {
