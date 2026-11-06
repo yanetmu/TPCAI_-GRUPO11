@@ -44,6 +44,30 @@ namespace Products.API.service
             return true;
         }
 
+
+        public bool Actualizar(Guid id, Product producto)
+        {
+            Product productoExistente = ObtenerPorId(id);
+
+            if (productoExistente == null)
+            {
+                return false;
+            }
+
+            productoExistente.Nombre = producto.Nombre;
+            productoExistente.Descripcion = producto.Descripcion;
+            productoExistente.Precio = producto.Precio;
+            productoExistente.Stock = producto.Stock;
+            productoExistente.Categoria = producto.Categoria;
+
+            _repository.Update(productoExistente);
+
+            return true;
+        }
+
+
+
+        /*
         public bool Actualizar(Guid id, Product producto)
         {
             Product productoExistente = ObtenerPorId(id);
@@ -63,6 +87,7 @@ namespace Products.API.service
 
             return true;
         }
+        */
 
         public bool Eliminar(Guid id)
         {

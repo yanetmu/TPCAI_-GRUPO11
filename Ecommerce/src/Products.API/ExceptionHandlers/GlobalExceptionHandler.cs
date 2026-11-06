@@ -27,6 +27,11 @@ namespace Products.API.ExceptionHandlers
                         "Ocurrió un error interno.")
             };
 
+
+            var logger = httpContext.RequestServices
+    .GetRequiredService<ILogger<GlobalExceptionHandler>>();
+
+            logger.LogError(exception, "Error en Products.API");
             httpContext.Response.StatusCode = statusCode;
 
             await httpContext.Response.WriteAsJsonAsync(
