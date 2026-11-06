@@ -1,3 +1,4 @@
+using Products.API.Data;
 using Products.API.ExceptionHandlers;
 using Products.API.service;
 using Serilog;
@@ -24,7 +25,20 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 builder.Services.AddProblemDetails();
 
+
+
+// Registramos la base de datos y el repositorio
+builder.Services.AddSingleton<DatabaseInitializer>();
+builder.Services.AddScoped<ProductRepository>();
+
 var app = builder.Build();
+// Crea la tabla automáticamente al arrancar
+using (var scope = app.Services.CreateScope())
+{
+    var initializer = scope.ServiceProvider.GetRequiredService<DatabaseInitializer>();
+    initializer.InitializeAsync().Wait();
+}
+
 app.UseExceptionHandler();
 
 if (app.Environment.IsDevelopment())

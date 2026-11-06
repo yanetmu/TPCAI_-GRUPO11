@@ -1,31 +1,32 @@
-﻿using Products.API.models;
+﻿using Products.API.Data;
+using Products.API.models;
 
 namespace Products.API.service
 {
     public class ProductService
     {
-        private List<Product> productos = new List<Product>();
+
+        private ProductRepository _repository;
+
+        public ProductService(ProductRepository repository)
+        {
+            _repository = repository;
+        }
 
         public List<Product> ObtenerTodos()
         {
-            return productos;
+            return _repository.GetAll();
         }
 
         public Product ObtenerPorId(Guid id)
         {
-            foreach (Product producto in productos)
-            {
-                if (producto.Id == id)
-                {
-                    return producto;
-                }
-            }
-
-            return null;
+            return _repository.GetById(id);
         }
 
         public bool Agregar(Product producto)
         {
+            List<Product> productos = _repository.GetAll();
+
             foreach (Product productoExistente in productos)
             {
                 if (productoExistente.Nombre == producto.Nombre &&
@@ -38,15 +39,10 @@ namespace Products.API.service
             producto.Id = Guid.NewGuid();
             producto.FechaCreacion = DateTime.UtcNow;
 
-            productos.Add(producto);
+            _repository.Add(producto);
 
             return true;
         }
-    
-
-
-
-
 
         public bool Actualizar(Guid id, Product producto)
         {
@@ -63,6 +59,8 @@ namespace Products.API.service
             productoExistente.Stock = producto.Stock;
             productoExistente.Categoria = producto.Categoria;
 
+            _repository.Add(productoExistente);
+
             return true;
         }
 
@@ -75,12 +73,34 @@ namespace Products.API.service
                 return false;
             }
 
-            productos.Remove(producto);
+            _repository.Delete(id);
 
             return true;
         }
+    }
 
 
-    }  
-}   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+}  
+
 
