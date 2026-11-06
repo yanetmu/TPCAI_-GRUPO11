@@ -1,24 +1,24 @@
 ﻿using Microsoft.Data.Sqlite;
-namespace Products.API.Data
+
+namespace Products.API.Data;
+
+public class DatabaseInitializer
 {
+    private readonly string _connectionString;
 
-    public class DatabaseInitializer
+    public DatabaseInitializer(IConfiguration configuration)
     {
-        private readonly string _connectionString;
+        _connectionString = configuration.GetConnectionString("DefaultConnection")
+            ?? "Data Source=products.db";
+    }
 
-        public DatabaseInitializer(IConfiguration configuration)
-        {
-            _connectionString = configuration.GetConnectionString("DefaultConnection")
-                ?? "Data Source=products.db";
-        }
+    public void Initialize()
+    {
+        using var connection = new SqliteConnection(_connectionString);
+        connection.Open();
 
-        public async Task InitializeAsync()
-        {
-            using var connection = new SqliteConnection(_connectionString);
-            await connection.OpenAsync();
-
-            var command = connection.CreateCommand();
-            command.CommandText = @"
+        var command = connection.CreateCommand();
+        command.CommandText = @"
             CREATE TABLE IF NOT EXISTS Products (
                 Id TEXT PRIMARY KEY,
                 Nombre TEXT NOT NULL,
@@ -29,8 +29,14 @@ namespace Products.API.Data
                 FechaCreacion TEXT NOT NULL
             );";
 
-            await command.ExecuteNonQueryAsync();
-        }
-
+        command.ExecuteNonQuery();
     }
 }
+
+
+
+
+
+
+
+

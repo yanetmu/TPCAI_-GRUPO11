@@ -5,7 +5,7 @@ using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddSingleton<ProductService>();
+
 
 Log.Logger = new LoggerConfiguration()
     .MinimumLevel.Information()
@@ -24,6 +24,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 builder.Services.AddProblemDetails();
+builder.Services.AddScoped<ProductService>();
 
 
 
@@ -32,11 +33,12 @@ builder.Services.AddSingleton<DatabaseInitializer>();
 builder.Services.AddScoped<ProductRepository>();
 
 var app = builder.Build();
+
 // Crea la tabla automáticamente al arrancar
 using (var scope = app.Services.CreateScope())
 {
     var initializer = scope.ServiceProvider.GetRequiredService<DatabaseInitializer>();
-    initializer.InitializeAsync().Wait();
+    initializer.Initialize();
 }
 
 app.UseExceptionHandler();
