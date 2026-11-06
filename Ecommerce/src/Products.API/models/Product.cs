@@ -2,11 +2,20 @@
 
 namespace Products.API.models
 {
-    //
+    /// <summary>
+    /// Representa un producto del catálogo.
+    /// </summary>
     public class Product
     {
+
+        /// <summary>
+        /// Identificador único del producto.
+        /// </summary>
         public Guid Id { get; set; }
 
+        /// <summary>
+        /// Nombre del producto.
+        /// </summary>
         [Required]
         [StringLength(100)]
         public string Nombre { get; set; } = string.Empty;

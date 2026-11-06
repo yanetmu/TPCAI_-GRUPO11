@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Diagnostics;
+﻿
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Products.API.Exceptions;
 
@@ -11,36 +12,94 @@ namespace Products.API.ExceptionHandlers
             Exception exception,
             CancellationToken cancellationToken)
         {
-            var (statusCode, errorCode, errorMessage) = exception switch
+            int statusCode;
+            string errorCode;
+            string errorMessage;
+            string titulo;
+            string detalle;
+            string tipo;
+
+            if (exception is NotFoundException)
             {
-                NotFoundException ex =>
-                    (StatusCodes.Status404NotFound, "PRD-002", ex.Message),
+                statusCode = 404;
+                errorCode = "PRD-001";
+                errorMessage = exception.Message;
+                titulo = "Not Found";
+                detalle = "El recurso solicitado no fue encontrado.";
+                tipo = "https://tools.ietf.org/html/rfc7231#section-6.5.4";
+            }
+            else if (exception is BusinessRuleException)
+            {
+                BusinessRuleException error = (BusinessRuleException)exception;
 
-                BusinessRuleException ex =>
-                    (StatusCodes.Status409Conflict, "PRD-005", ex.Message),
+                statusCode = 409;
+                errorCode = error.ErrorCode;
+                errorMessage = error.Message;
+                titulo = "Conflict";
 
-                Products.API.Exceptions.ValidationException ex =>
-                    (StatusCodes.Status400BadRequest, "PRD-003", ex.Message),
+                if (errorCode == "PRD-004")
+                {
+                    detalle = "No se puede eliminar el recurso.";
+                }
+                else
+                {
+                    detalle = "Ya existe un recurso con esos datos.";
+                }
 
-                _ =>
-                    (StatusCodes.Status500InternalServerError, "PRD-001",
-                        "Ocurrió un error interno.")
-            };
-
+                tipo = "https://tools.ietf.org/html/rfc7231#section-6.5.9";
+            }
+            else if (exception is Products.API.Exceptions.ValidationException)
+            {
+                statusCode = 400;
+                errorCode = "PRD-002";
+                errorMessage = exception.Message;
+                titulo = "Bad Request";
+                detalle = "Los datos del producto son inválidos.";
+                tipo = "https://tools.ietf.org/html/rfc7231#section-6.5.1";
+            }
+            else
+            {
+                statusCode = 500;
+                errorCode = "PRD-005";
+                errorMessage = "Error interno al procesar el producto.";
+                titulo = "Internal Server Error";
+                detalle = "Ocurrió un error interno.";
+                tipo = "https://tools.ietf.org/html/rfc7231#section-6.6.1";
+            }
 
             var logger = httpContext.RequestServices
-    .GetRequiredService<ILogger<GlobalExceptionHandler>>();
+                .GetRequiredService<ILogger<GlobalExceptionHandler>>();
 
-            logger.LogError(exception, "Error en Products.API");
+            if (statusCode == 500)
+            {
+                logger.LogError(exception,
+                    "Error interno {ErrorCode}", errorCode);
+            }
+            else
+            {
+                logger.LogWarning(
+                    "Error de negocio {ErrorCode}: {ErrorMessage}",
+                    errorCode, errorMessage);
+            }
+
+            var problem = new ProblemDetails();
+
+            problem.Type = tipo;
+            problem.Title = titulo;
+            problem.Status = statusCode;
+            problem.Detail = detalle;
+            problem.Instance = httpContext.Request.Path;
+
+            problem.Extensions["errorCode"] = errorCode;
+            problem.Extensions["errorMessage"] = errorMessage;
+            problem.Extensions["correlationId"] = httpContext.TraceIdentifier;
+
             httpContext.Response.StatusCode = statusCode;
+            httpContext.Response.ContentType = "application/problem+json";
 
             await httpContext.Response.WriteAsJsonAsync(
-                new
-                {
-                    errorCode,
-                    errorMessage
-                },
-                cancellationToken);
+                problem,
+                cancellationToken: cancellationToken);
 
             return true;
         }

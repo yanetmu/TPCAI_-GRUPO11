@@ -120,39 +120,6 @@ public class ProductRepository
         command.ExecuteNonQuery();
     }
 
-
-
-    /*
-    public void Update(Product product)
-    {
-        using var connection = new SqliteConnection(_connectionString);
-        connection.Open();
-
-        var command = connection.CreateCommand();
-
-        command.CommandText = @"
-        UPDATE Products
-        SET Nombre = $nombre,
-            Descripcion = $descripcion,
-            Precio = $precio,
-            Stock = $stock,
-            Categoria = $categoria
-        WHERE Id = $id";
-
-        command.Parameters.AddWithValue("$id", product.Id.ToString());
-        command.Parameters.AddWithValue("$nombre", product.Nombre);
-        command.Parameters.AddWithValue("$descripcion",
-            (object?)product.Descripcion ?? DBNull.Value);
-        command.Parameters.AddWithValue("$precio", product.Precio);
-        command.Parameters.AddWithValue("$stock", product.Stock);
-        command.Parameters.AddWithValue("$categoria", product.Categoria);
-
-        command.ExecuteNonQuery();
-    }
-    */
-
-
-
     public void Delete(Guid id)
     {
         using var connection = new SqliteConnection(_connectionString);
