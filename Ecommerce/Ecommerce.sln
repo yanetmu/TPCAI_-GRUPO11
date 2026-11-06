@@ -25,6 +25,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Users.API", "src\Users.API\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orders.API", "src\Orders.API\Orders.API.csproj", "{0B76C142-A3A0-4ECE-A990-67FEBD30C8CF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiniApi", "toDoList-2026-feature-completo\MiniApi\MiniApi.csproj", "{0D1E46E8-DB5A-C1AC-4132-83ADB09F71CD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{0B76C142-A3A0-4ECE-A990-67FEBD30C8CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0B76C142-A3A0-4ECE-A990-67FEBD30C8CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0B76C142-A3A0-4ECE-A990-67FEBD30C8CF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D1E46E8-DB5A-C1AC-4132-83ADB09F71CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D1E46E8-DB5A-C1AC-4132-83ADB09F71CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D1E46E8-DB5A-C1AC-4132-83ADB09F71CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D1E46E8-DB5A-C1AC-4132-83ADB09F71CD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
