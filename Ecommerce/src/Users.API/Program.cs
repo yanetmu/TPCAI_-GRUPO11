@@ -3,14 +3,30 @@ using Users.API.Data;
 using Users.API.Exceptions;
 using Users.API.Services;
 using Dapper;
+using Serilog;
+using Serilog.Context;
 
 SqlMapper.AddTypeHandler(new GuidHandler());
 var builder = WebApplication.CreateBuilder(args);
+
+// Configurar Serilog
+builder.Host.UseSerilog((context, configuration) =>
+{
+    configuration
+        .ReadFrom.Configuration(context.Configuration)
+        .WriteTo.Console(
+    outputTemplate: "[{Timestamp:HH:mm:ss} {Level:u3}] [{CorrelationId}] {Message:lj}{NewLine}{Exception}")
+        .WriteTo.File(
+            "logs/users-api-.txt",
+            rollingInterval: RollingInterval.Day);
+});
+
 builder.Services.AddScoped<DatabaseInitializer>();
 builder.Services.AddScoped<UserRepository>();
 builder.Services.AddScoped<UserService>();
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 builder.Services.AddProblemDetails();
+builder.Services.AddHealthChecks();
 
 // Agrega servicios al contenedor
 
@@ -37,7 +53,42 @@ builder.Services.Configure<ApiBehaviorOptions>(options =>
 
 var app = builder.Build();
 
+
+app.Use(async (context, next) =>
+{
+    string correlationId = context.Request.Headers["X-Correlation-ID"].ToString();
+
+    if (string.IsNullOrWhiteSpace(correlationId))
+    {
+        correlationId = Guid.NewGuid().ToString();
+    }
+
+    context.Items["CorrelationId"] = correlationId;
+
+    context.Response.OnStarting(() =>
+    {
+        context.Response.Headers["X-Correlation-ID"] = correlationId;
+        return Task.CompletedTask;
+    });
+
+    using (LogContext.PushProperty("CorrelationId", correlationId))
+    {
+        await next();
+    }
+});
+
+
 app.UseExceptionHandler();
+
+app.UseSerilogRequestLogging(options =>
+{
+    options.EnrichDiagnosticContext = (diagnosticContext, httpContext) =>
+    {
+        diagnosticContext.Set(
+            "CorrelationId",
+            httpContext.Items["CorrelationId"]?.ToString());
+    };
+});
 
 using (var scope = app.Services.CreateScope())
 {
@@ -56,5 +107,8 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+app.MapHealthChecks("/health");
+app.MapHealthChecks("/ready");
+app.MapHealthChecks("/live");
 
 app.Run();
