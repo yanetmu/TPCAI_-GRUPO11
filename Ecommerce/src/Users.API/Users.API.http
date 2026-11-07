@@ -1,6 +1,42 @@
-@Users.API_HostAddress = http://localhost:5076
+@Users_API_HostAddress = http://localhost:5076
 
-GET {{Users.API_HostAddress}}/weatherforecast/
-Accept: application/json
+### Registrar usuario
+POST {{Users_API_HostAddress}}/api/users/register
+Content-Type: application/json
 
-###
+{
+  "nombre": "Lucia",
+  "apellido": "Perez",
+  "email": "lucia@test.com",
+  "password": "Prueba123!"
+}
+
+
+### Iniciar sesión
+POST {{Users_API_HostAddress}}/api/users/login
+Content-Type: application/json
+
+{
+  "email": "lucia@test.com",
+  "password": "Prueba123!"
+}
+
+### Registro con datos inválidos
+POST {{Users_API_HostAddress}}/api/users/register
+Content-Type: application/json
+
+{
+  "nombre": "Lucia",
+  "apellido": "Perez",
+  "email": "correo-invalido",
+  "password": "Prueba123!"
+}
+
+### Login con contraseña incorrecta
+POST {{Users_API_HostAddress}}/api/users/login
+Content-Type: application/json
+
+{
+  "email": "lucia@test.com",
+  "password": "Incorrecta123"
+}
