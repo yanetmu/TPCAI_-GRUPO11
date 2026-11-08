@@ -5,6 +5,10 @@ using Users.API.Services;
 using Dapper;
 using Serilog;
 using Serilog.Context;
+using Users.API.Swagger;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
+using System.Text.Json;
 
 SqlMapper.AddTypeHandler(new GuidHandler());
 var builder = WebApplication.CreateBuilder(args);
@@ -14,11 +18,13 @@ builder.Host.UseSerilog((context, configuration) =>
 {
     configuration
         .ReadFrom.Configuration(context.Configuration)
+        .Enrich.WithProperty("Service", "Users.API")
         .WriteTo.Console(
     outputTemplate: "[{Timestamp:HH:mm:ss} {Level:u3}] [{CorrelationId}] {Message:lj}{NewLine}{Exception}")
         .WriteTo.File(
-            "logs/users-api-.txt",
-            rollingInterval: RollingInterval.Day);
+    new Serilog.Formatting.Compact.CompactJsonFormatter(),
+    "logs/users-api-.json",
+    rollingInterval: RollingInterval.Day);
 });
 
 builder.Services.AddScoped<DatabaseInitializer>();
@@ -32,6 +38,18 @@ builder.Services.AddHealthChecks();
 
 builder.Services.AddControllers();
 builder.Services.AddOpenApi();
+builder.Services.AddEndpointsApiExplorer();
+
+
+builder.Services.AddSwaggerGen(options =>
+{
+    var xmlFile = $"{typeof(Program).Assembly.GetName().Name}.xml";
+    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+
+    options.IncludeXmlComments(xmlPath);
+    options.OperationFilter<UsersExamples>();
+});
+
 
 builder.Services.Configure<ApiBehaviorOptions>(options =>
 {
@@ -45,6 +63,11 @@ builder.Services.Configure<ApiBehaviorOptions>(options =>
 
         problem.Extensions["errorCode"] = "USR-002";
         problem.Extensions["errorMessage"] = "Los datos ingresados no son válidos";
+
+        string correlationId =
+    context.HttpContext.Items["CorrelationId"]?.ToString() ?? "";
+
+        problem.Extensions["correlationId"] = correlationId;
 
         return new BadRequestObjectResult(problem);
     };
@@ -78,7 +101,7 @@ app.Use(async (context, next) =>
 });
 
 
-app.UseExceptionHandler();
+
 
 app.UseSerilogRequestLogging(options =>
 {
@@ -90,6 +113,8 @@ app.UseSerilogRequestLogging(options =>
     };
 });
 
+app.UseExceptionHandler();
+
 using (var scope = app.Services.CreateScope())
 {
     var database = scope.ServiceProvider.GetRequiredService<DatabaseInitializer>();
@@ -100,6 +125,8 @@ using (var scope = app.Services.CreateScope())
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
 
 app.UseHttpsRedirection();
@@ -107,8 +134,26 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
-app.MapHealthChecks("/health");
-app.MapHealthChecks("/ready");
-app.MapHealthChecks("/live");
+
+var healthOptions = new HealthCheckOptions
+{
+    ResponseWriter = async (context, report) =>
+    {
+        context.Response.ContentType = "application/json";
+
+        var resultado = new
+        {
+            status = report.Status.ToString()
+        };
+
+        await context.Response.WriteAsync(
+            JsonSerializer.Serialize(resultado));
+    }
+};
+
+app.MapHealthChecks("/health", healthOptions);
+app.MapHealthChecks("/health/ready", healthOptions);
+app.MapHealthChecks("/health/live", healthOptions);
+
 
 app.Run();

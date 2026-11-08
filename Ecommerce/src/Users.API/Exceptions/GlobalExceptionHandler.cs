@@ -1,6 +1,6 @@
-﻿
-using Microsoft.AspNetCore.Diagnostics;
+﻿using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using Serilog;
 
 namespace Users.API.Exceptions
 {
@@ -11,8 +11,6 @@ namespace Users.API.Exceptions
             Exception exception,
             CancellationToken cancellationToken)
         {
-       
-
             int statusCode = 500;
 
             string errorCode = "USR-006";
@@ -25,6 +23,27 @@ namespace Users.API.Exceptions
                 errorMessage = userException.Message;
             }
 
+            string correlationId =
+                httpContext.Items["CorrelationId"]?.ToString() ?? "";
+
+            string endpoint = httpContext.Request.Path.ToString();
+
+            // Registrar los errores de negocio como Warning
+            if (exception is UserException)
+            {
+                Log.Warning(
+                    "Error de negocio. Endpoint: {Endpoint}, CorrelationId: {CorrelationId}, errorCode: {ErrorCode}, StatusCode: {StatusCode}",
+                    endpoint, correlationId, errorCode, statusCode);
+            }
+            else
+            {
+                // Registrar los errores inesperados como Error
+                Log.Error(
+                    exception,
+                    "Error inesperado. Endpoint: {Endpoint}, CorrelationId: {CorrelationId}, errorCode: {ErrorCode}, StatusCode: {StatusCode}",
+                    endpoint, correlationId, errorCode, statusCode);
+            }
+
             var problem = new ProblemDetails
             {
                 Status = statusCode,
@@ -34,6 +53,7 @@ namespace Users.API.Exceptions
 
             problem.Extensions["errorCode"] = errorCode;
             problem.Extensions["errorMessage"] = errorMessage;
+            problem.Extensions["correlationId"] = correlationId;
 
             httpContext.Response.StatusCode = statusCode;
 
@@ -45,3 +65,4 @@ namespace Users.API.Exceptions
         }
     }
 }
+
