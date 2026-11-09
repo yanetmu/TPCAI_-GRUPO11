@@ -28,12 +28,34 @@ namespace Cart.API.Services
             {
                 throw new ArgumentException("CRT-004: La cantidad debe ser mayor a cero.");
             }
+            
             ProductInfo? producto = await productService.ObtenerProducto(productoId);
 
             if (producto == null)
             {
                 throw new KeyNotFoundException("CRT-002: Producto no encontrado.");
             }
+
+            Carrito? carritoExistente = repositorio.ObtenerPorUsuario(usuarioId);
+
+            int cantidadActual = 0;
+
+            if (carritoExistente != null)
+            {
+                foreach (CartItem item in carritoExistente.Items)
+                {
+                    if (item.ProductoId == productoId)
+                    {
+                        cantidadActual = item.Cantidad;
+                    }
+                }
+            }
+
+            if (cantidadActual + cantidad > producto.Stock)
+            {
+                throw new InvalidOperationException("CRT-003: Stock insuficiente.");
+            }
+
 
             Carrito? carrito = repositorio.ObtenerPorUsuario(usuarioId);
 
@@ -67,6 +89,97 @@ namespace Cart.API.Services
 
             repositorio.Guardar(carrito);
         }
+
+        public async Task ActualizarProducto(Guid usuarioId, Guid productoId, int cantidad)
+        {
+            if (cantidad <= 0)
+            {
+                throw new ArgumentException("CRT-004: La cantidad debe ser mayor a cero.");
+            }
+
+            Carrito? carrito = repositorio.ObtenerPorUsuario(usuarioId);
+
+            if (carrito == null)
+            {
+                throw new KeyNotFoundException("CRT-001: Carrito no encontrado.");
+            }
+
+            CartItem? itemEncontrado = null;
+
+            foreach (CartItem item in carrito.Items)
+            {
+                if (item.ProductoId == productoId)
+                {
+                    itemEncontrado = item;
+                }
+            }
+
+            if (itemEncontrado == null)
+            {
+                throw new KeyNotFoundException("CRT-001: Producto no encontrado en el carrito.");
+            }
+
+            ProductInfo? producto = await productService.ObtenerProducto(productoId);
+
+            if (producto == null)
+            {
+                throw new KeyNotFoundException("CRT-002: Producto no encontrado.");
+            }
+
+            if (cantidad > producto.Stock)
+            {
+                throw new InvalidOperationException("CRT-003: Stock insuficiente.");
+            }
+
+            itemEncontrado.Cantidad = cantidad;
+            carrito.FechaActualizacion = DateTime.UtcNow;
+
+            repositorio.Guardar(carrito);
+        }
+
+        public void EliminarProducto(Guid usuarioId, Guid productoId)
+        {
+            Carrito? carrito = repositorio.ObtenerPorUsuario(usuarioId);
+
+            if (carrito == null)
+            {
+                throw new KeyNotFoundException("CRT-001: Carrito no encontrado.");
+            }
+
+            CartItem? itemEncontrado = null;
+
+            foreach (CartItem item in carrito.Items)
+            {
+                if (item.ProductoId == productoId)
+                {
+                    itemEncontrado = item;
+                }
+            }
+
+            if (itemEncontrado == null)
+            {
+                throw new KeyNotFoundException("CRT-001: Producto no encontrado en el carrito.");
+            }
+
+            carrito.Items.Remove(itemEncontrado);
+            carrito.FechaActualizacion = DateTime.UtcNow;
+
+            repositorio.Guardar(carrito);
+        }
+
+        public void EliminarCarrito(Guid usuarioId)
+        {
+            Carrito? carrito = repositorio.ObtenerPorUsuario(usuarioId);
+
+            if (carrito == null)
+            {
+                throw new KeyNotFoundException("CRT-001: Carrito no encontrado.");
+            }
+
+            repositorio.Eliminar(usuarioId);
+        }
+
+
 
     }
 }

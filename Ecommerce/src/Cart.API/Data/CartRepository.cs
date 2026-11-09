@@ -35,5 +35,16 @@ namespace Cart.API.Data
             }
         }
 
+        public void Eliminar(Guid usuarioId)
+        {
+            Carrito? carrito = ObtenerPorUsuario(usuarioId);
+
+            if (carrito != null)
+            {
+                carritos.Remove(carrito);
+            }
+        }
+
+
     }
 }
