@@ -1,6 +1,8 @@
 ﻿using Cart.API.Data;
 using Cart.API.Models;
 using Carrito = global::Cart.API.Models.Cart;
+using Cart.API.Exceptions;
+
 
 namespace Cart.API.Services
 {
@@ -101,7 +103,9 @@ namespace Cart.API.Services
 
             if (carrito == null)
             {
-                throw new KeyNotFoundException("CRT-001: Carrito no encontrado.");
+
+                throw new NotFoundException("Carrito no encontrado.");
+
             }
 
             CartItem? itemEncontrado = null;
@@ -116,7 +120,7 @@ namespace Cart.API.Services
 
             if (itemEncontrado == null)
             {
-                throw new KeyNotFoundException("CRT-001: Producto no encontrado en el carrito.");
+                throw new NotFoundException("Producto no encontrado en el carrito.");
             }
 
             ProductInfo? producto = await productService.ObtenerProducto(productoId);
