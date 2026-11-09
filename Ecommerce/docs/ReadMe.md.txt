@@ -1,14 +1,16 @@
-Cart.API
+# Cart.API
 
 Microservicio encargado de la gestión del carrito de compras de los usuarios. Permite consultar el carrito, agregar productos, actualizar sus cantidades y eliminar productos o el carrito completo.
 
-Tecnologías utilizadas:
--C# y ASP.NET Core (.NET 10)
--Swagger
--Serilog
--Health Checks
+## Tecnologías utilizadas
 
-Endpoints
+- C# y ASP.NET Core (.NET 10)
+- Swagger
+- Serilog
+- Health Checks
+
+## Endpoints
+
 | Método | Endpoint | Descripción |
 |---|---|---|
 | GET | `/api/cart/{userId}` | Consulta el carrito |
@@ -17,8 +19,8 @@ Endpoints
 | DELETE | `/api/cart/{userId}/items/{productId}` | Elimina un producto |
 | DELETE | `/api/cart/{userId}` | Elimina el carrito |
 
+## Códigos de respuesta
 
-Códigos de Respuesta
 | Código HTTP | Código de error | Descripción |
 |---|---|---|
 | 200 | — | Operación realizada correctamente |
@@ -29,31 +31,30 @@ Códigos de Respuesta
 | 422 | CRT-003 | Stock insuficiente |
 | 500 | CRT-005 | Error interno del servidor |
 
-
-Validaciones e integración
+## Validaciones e integración
 
 Se verifica que la cantidad de productos sea mayor a cero y que exista stock suficiente para realizar la operación.
-El microservicio se comunica con Products.API mediante HTTP para consultar la existencia y disponibilidad de los productos.
 
-Almacenamiento de datos
+El microservicio se comunica con `Products.API` mediante HTTP para consultar la existencia y disponibilidad de los productos.
 
-Los carritos se almacenan en memoria mediante CartRepository, utilizando una lista de carritos. Los datos se mantienen mientras la aplicación está en ejecución y se pierden al reiniciar el servicio.
+## Almacenamiento de datos
 
+Los carritos se almacenan en memoria mediante `CartRepository`, utilizando una lista de carritos. Los datos se mantienen mientras la aplicación está en ejecución y se pierden al reiniciar el servicio.
 
-Manejo de errores
+## Manejo de errores
 
-Se utiliza IExceptionHandler para centralizar el manejo de excepciones y ProblemDetails para devolver errores en formato JSON, incluyendo los códigos de error correspondientes.
+Se utiliza `IExceptionHandler` para centralizar el manejo de excepciones y `ProblemDetails` para devolver errores en formato JSON, incluyendo los códigos de error correspondientes.
 
-
-Logs y trazabilidad
+## Logs y trazabilidad
 
 Se utiliza Serilog para registrar eventos en consola y archivos JSON.
-El encabezado X-Correlation-Id permite identificar cada solicitud y relacionarla con sus registros mediante el identificador CorrelationId.
 
+El encabezado `X-Correlation-Id` permite identificar cada solicitud y relacionarla con sus registros mediante el identificador `CorrelationId`.
 
-Documentación y pruebas
+## Documentación y pruebas
 
 La API dispone de Swagger para consultar y probar los endpoints.
-Swagger: https://localhost:7167/swagger
+
+Swagger: `https://localhost:7167/swagger`
 
 Se probaron los endpoints de consulta, agregado, actualización y eliminación del carrito, las principales validaciones, los códigos de error y los Health Checks.
