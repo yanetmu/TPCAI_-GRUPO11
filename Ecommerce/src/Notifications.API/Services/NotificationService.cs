@@ -10,12 +10,35 @@ namespace Notifications.API.Services
     {
         private readonly NotificationRepository repository;
 
-        public NotificationService(NotificationRepository repository)
+        
+        private readonly HttpClient httpClient;
+
+        public NotificationService(
+            NotificationRepository repository,
+            IHttpClientFactory httpClientFactory)
         {
             this.repository = repository;
+            this.httpClient = httpClientFactory.CreateClient();
         }
 
-        public Notification Enviar(SendNotificationRequest request)
+
+        private async Task<bool> ExisteUsuario(Guid usuarioId)
+        {
+            HttpResponseMessage respuesta = await httpClient.GetAsync(
+                $"https://localhost:7191/api/users/{usuarioId}");
+
+            if (respuesta.StatusCode == System.Net.HttpStatusCode.NotFound)
+            {
+                return false;
+            }
+
+            respuesta.EnsureSuccessStatusCode();
+
+            return true;
+        }
+
+
+        public async Task<Notification> Enviar(SendNotificationRequest request)
         {
             if (request.UsuarioId == Guid.Empty ||
                string.IsNullOrWhiteSpace(request.Mensaje) || request.Mensaje.Length > 500 ||
@@ -28,6 +51,13 @@ namespace Notifications.API.Services
             if (request.Tipo != "Email" && request.Tipo != "SMS" && request.Tipo != "Push")
             {
                 throw new ValidationException("Los datos de la notificación son inválidos.");
+            }
+
+            bool existe = await ExisteUsuario(request.UsuarioId);
+
+            if (!existe)
+            {
+                throw new NotFoundException("NTF-001", "El usuario no existe.");
             }
 
 

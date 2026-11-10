@@ -102,6 +102,19 @@ namespace Users.API.Services
                 Apellido = user.Apellido,
                 Email = user.Email
             };
+
+        }
+
+        public async Task<bool> ExisteUsuarioAsync(Guid id)
+        {
+            User? usuario = await _repository.GetByIdAsync(id);
+
+            if (usuario == null)
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }

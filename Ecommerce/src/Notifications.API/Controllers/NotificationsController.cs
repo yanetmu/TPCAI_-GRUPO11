@@ -92,9 +92,9 @@ namespace Notifications.API.Controllers
         [ProducesResponseType(typeof(ErrorResponse), 400)]
         [ProducesResponseType(typeof(ErrorResponse), 404)]
         [ProducesResponseType(typeof(ErrorResponse), 500)]
-        public IActionResult Enviar(SendNotificationRequest request)
+        public async Task<IActionResult> Enviar(SendNotificationRequest request)
         {
-            Notification notificacion = service.Enviar(request);
+            Notification notificacion = await service.Enviar(request);
 
             return StatusCode(201, notificacion);
         }
@@ -162,12 +162,9 @@ namespace Notifications.API.Controllers
 
             if (notificaciones.Count == 0)
             {
-                if (notificaciones.Count == 0)
-                {
-                    throw new NotFoundException(
-                        "NTF-003",
-                        "No se encontraron notificaciones para el usuario.");
-                }
+                throw new NotFoundException(
+                    "NTF-003",
+                    "No se encontraron notificaciones para el usuario.");
             }
 
             return Ok(notificaciones);

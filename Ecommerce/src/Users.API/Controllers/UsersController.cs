@@ -73,5 +73,25 @@ namespace Users.API.Controllers
             LoginResponse response = await _userService.LoginAsync(request);
             return Ok(response);
         }
+
+        /// <summary>
+        /// Verifica si un usuario existe por su ID.
+        /// </summary>
+        /// <response code="200">El usuario existe.</response>
+        /// <response code="404">El usuario no existe.</response>
+        [HttpGet("{id}")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(404)]
+        public async Task<IActionResult> ExisteUsuario(Guid id)
+        {
+            bool existe = await _userService.ExisteUsuarioAsync(id);
+
+            if (!existe)
+            {
+                return NotFound();
+            }
+
+            return Ok();
+        }
     }
 }

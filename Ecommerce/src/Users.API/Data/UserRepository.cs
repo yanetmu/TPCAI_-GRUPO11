@@ -37,7 +37,7 @@ namespace Users.API.Data
 
             return await connection.QuerySingleOrDefaultAsync<User>(
                 "SELECT * FROM users WHERE Id = @Id",
-                new { Id = id.ToString() });
+                new { Id = id });
         }
 
         public async Task CreateAsync(User user)
