@@ -58,3 +58,64 @@ La API dispone de Swagger para consultar y probar los endpoints.
 Swagger: `https://localhost:7167/swagger`
 
 Se probaron los endpoints de consulta, agregado, actualización y eliminación del carrito, las principales validaciones, los códigos de error y los Health Checks.
+
+
+
+# Notifications.API
+
+Microservicio encargado de la gestión de notificaciones de los usuarios. Permite enviar notificaciones y consultar las notificaciones asociadas a un usuario.
+
+## Tecnologías utilizadas
+
+- C# y ASP.NET Core (.NET 10)
+- Swagger
+- Serilog
+- Health Checks
+- HttpClient
+
+## Endpoints
+
+| Método | Endpoint | Descripción |
+|---|---|---|
+| POST | `/api/notifications` | Envía una notificación a un usuario |
+| GET | `/api/notifications/{usuarioId}` | Consulta las notificaciones de un usuario |
+
+## Códigos de respuesta
+
+| Código HTTP | Código de error | Descripción |
+|---|---|---|
+| 200 | — | Consulta realizada correctamente |
+| 201 | — | Notificación creada correctamente |
+| 400 | NTF-002 | Datos de la notificación inválidos |
+| 404 | NTF-001 | Usuario no encontrado |
+| 404 | NTF-003 | Notificación no encontrada |
+| 500 | NTF-004 | Error interno del servidor |
+
+## Almacenamiento de datos
+
+Las notificaciones se almacenan en memoria mediante `NotificationRepository`, utilizando una lista de notificaciones. 
+Los datos se mantienen mientras la aplicación está en ejecución y se pierden al reiniciar el servicio.
+
+## Validaciones e integración
+
+Se validan los datos necesarios para enviar una notificación y se verifica que el usuario destinatario exista.
+
+El microservicio se comunica con `Users.API` mediante HTTP para comprobar la existencia del usuario antes de crear la notificación.
+
+## Manejo de errores
+
+Se utiliza `IExceptionHandler` para centralizar el manejo de excepciones y `ProblemDetails` para devolver errores en formato JSON, incluyendo `errorCode`, `errorMessage` y `correlationId`.
+
+## Logs y trazabilidad
+
+Se utiliza Serilog para registrar eventos de la aplicación.
+
+El encabezado `X-Correlation-Id` permite identificar cada solicitud y relacionarla con sus registros mediante el identificador `CorrelationId`.
+
+## Documentación y pruebas
+
+La API dispone de Swagger para consultar y probar los endpoints.
+
+Se probaron el envío de notificaciones a usuarios existentes e inexistentes, la consulta de notificaciones y los códigos de respuesta correspondientes.
+
+Swagger: `https://localhost:7104/swagger`
