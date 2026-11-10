@@ -8,14 +8,38 @@ builder.Host.UseSerilog((context, configuration) =>
         .WriteTo.File("logs/orders-.txt", rollingInterval: RollingInterval.Day);
 });
 
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .ConfigureApiBehaviorOptions(options =>
+    {
+        options.InvalidModelStateResponseFactory = context =>
+        {
+            var problema = new Microsoft.AspNetCore.Mvc.ProblemDetails
+            {
+                Status = 400,
+                Title = "Datos inválidos",
+                Detail = "Los datos de la orden son inválidos."
+            };
+
+            problema.Extensions["errorCode"] = "ORD-002";
+            problema.Extensions["errorMessage"] = "Los datos de la orden son inválidos.";
+
+            return new Microsoft.AspNetCore.Mvc.BadRequestObjectResult(problema);
+        };
+    });
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(options =>
+{
+    string archivoXml = $"{typeof(Program).Assembly.GetName().Name}.xml";
+    string rutaXml = Path.Combine(AppContext.BaseDirectory, archivoXml);
+
+    options.IncludeXmlComments(rutaXml);
+});
 builder.Services.AddHttpClient();
 builder.Services.AddSingleton<Orders.API.Services.OrderService>();
 builder.Services.AddExceptionHandler<Orders.API.ExceptionHandlers.OrderExceptionHandler>();
 builder.Services.AddProblemDetails();
 builder.Services.AddHealthChecks();
+builder.Services.AddHttpContextAccessor();
 
 var app = builder.Build();
 

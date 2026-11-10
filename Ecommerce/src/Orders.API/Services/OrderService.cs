@@ -12,9 +12,14 @@ namespace Orders.API.Services
 
         private readonly IHttpClientFactory _httpClientFactory;
 
-        public OrderService(IHttpClientFactory httpClientFactory)
+        private readonly IHttpContextAccessor _httpContextAccessor;
+
+        public OrderService(
+    IHttpClientFactory httpClientFactory,
+    IHttpContextAccessor httpContextAccessor)
         {
             _httpClientFactory = httpClientFactory;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public async Task<Order> Crear(CreateOrderRequest request)
@@ -35,6 +40,14 @@ namespace Orders.API.Services
             }
 
             HttpClient cliente = _httpClientFactory.CreateClient();
+
+            string correlationId = _httpContextAccessor.HttpContext?
+    .Response.Headers["X-Correlation-Id"].ToString() ?? "";
+
+            if (!string.IsNullOrEmpty(correlationId))
+            {
+                cliente.DefaultRequestHeaders.Add("X-Correlation-Id", correlationId);
+            }
 
             HttpResponseMessage respuestaUsuario =
                 await cliente.GetAsync($"https://localhost:7191/api/users/{request.UsuarioId}");
