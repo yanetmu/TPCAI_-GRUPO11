@@ -1,17 +1,34 @@
+using Serilog;
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+builder.Host.UseSerilog((context, configuration) =>
+{
+    configuration
+        .WriteTo.Console()
+        .WriteTo.File("logs/orders-.txt", rollingInterval: RollingInterval.Day);
+});
 
 builder.Services.AddControllers();
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-builder.Services.AddOpenApi();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+builder.Services.AddHttpClient();
+builder.Services.AddSingleton<Orders.API.Services.OrderService>();
+builder.Services.AddExceptionHandler<Orders.API.ExceptionHandlers.OrderExceptionHandler>();
+builder.Services.AddProblemDetails();
+builder.Services.AddHealthChecks();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+app.UseMiddleware<Orders.API.Middleware.CorrelationIdMiddleware>();
+
+app.UseSerilogRequestLogging();
+
+app.UseExceptionHandler();
+
 if (app.Environment.IsDevelopment())
 {
-    app.MapOpenApi();
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
 
 app.UseHttpsRedirection();
@@ -19,5 +36,8 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+app.MapHealthChecks("/health");
+app.MapHealthChecks("/health/ready");
+app.MapHealthChecks("/health/live");
 
 app.Run();
