@@ -66,6 +66,7 @@ builder.Services.AddSwaggerGen(options =>
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 builder.Services.AddProblemDetails();
 builder.Services.AddScoped<ProductService>();
+builder.Services.AddHttpClient();
 
 
 

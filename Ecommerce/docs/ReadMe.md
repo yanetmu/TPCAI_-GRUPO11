@@ -1,3 +1,279 @@
+# Products.API — Microservicio de Productos
+
+## 1. Descripción
+
+Products.API es el microservicio encargado de administrar el catálogo de productos del sistema de E-Commerce basado en microservicios.
+
+Permite consultar, registrar, actualizar y eliminar productos mediante una API REST desarrollada con ASP.NET Core y .NET 10.
+
+Cada producto contiene un identificador único, nombre, descripción, precio, stock, categoría y fecha de creación.
+
+El microservicio utiliza SQLite para almacenar la información y se comunica con Orders.API para impedir la eliminación de productos asociados a órdenes activas.
+
+## 2. Tecnologías utilizadas
+
+- **ASP.NET Core Web API (.NET 10):** desarrollo de los endpoints REST.
+- **SQLite:** almacenamiento persistente de productos.
+- **Swagger:** documentación y pruebas de los endpoints.
+- **Serilog:** registro de eventos y solicitudes.
+- **Health Checks:** monitoreo del estado del microservicio.
+- **HttpClient:** comunicación HTTP con Orders.API.
+- **IExceptionHandler y ProblemDetails:** manejo centralizado de errores.
+
+## 3. Estructura del microservicio
+
+Products.API está organizado en las siguientes carpetas y componentes:
+
+| Componente | Funcionalidad |
+|---|---|
+| Controllers | Define los endpoints HTTP |
+| Models | Contiene el modelo Product |
+| Service | Implementa la lógica de negocio y las validaciones |
+| Data | Gestiona el acceso y la inicialización de la base de datos |
+| Exceptions | Define las excepciones del microservicio |
+| ExceptionHandlers | Centraliza el manejo de errores |
+
+La clase `ProductService` contiene la lógica de negocio, mientras que `ProductRepository` realiza las operaciones sobre SQLite.
+
+## 4. Modelo de datos y validaciones
+
+El modelo `Product` contiene los siguientes atributos:
+
+| Atributo | Tipo | Restricción |
+|---|---|---|
+| Id | Guid | Identificador único generado automáticamente |
+| Nombre | string | Obligatorio, máximo 100 caracteres |
+| Descripcion | string | Opcional, máximo 500 caracteres |
+| Precio | decimal | Mayor o igual a 0,01 |
+| Stock | int | No puede ser negativo |
+| Categoria | string | Obligatoria |
+| FechaCreacion | DateTime | Generada automáticamente al registrar el producto |
+
+Las validaciones permiten evitar el registro de productos con datos inválidos. Además, durante la creación se verifica que no exista otro producto con el mismo nombre y categoría.
+
+## 5. Endpoints implementados
+
+La ruta base del microservicio es `/api/products`.
+
+| Método | Endpoint | Funcionalidad |
+|---|---|---|
+| GET | `/api/products` | Obtiene todos los productos y permite filtrar por nombre o categoría |
+| GET | `/api/products/{id}` | Obtiene un producto por su identificador |
+| GET | `/api/products/category/{categoria}` | Obtiene los productos de una categoría |
+| POST | `/api/products` | Registra un nuevo producto |
+| PUT | `/api/products/{id}` | Actualiza los datos de un producto existente |
+| DELETE | `/api/products/{id}` | Elimina un producto si no está asociado a órdenes activas |
+
+Los endpoints están documentados mediante Swagger, que permite consultar parámetros, visualizar respuestas y ejecutar solicitudes de prueba.
+
+## 6. Persistencia de datos
+
+Products.API utiliza SQLite para almacenar la información de los productos.
+
+La clase `ProductRepository` implementa las operaciones de consulta, inserción, actualización y eliminación mediante instrucciones SQL parametrizadas.
+
+La clase `DatabaseInitializer` se encarga de inicializar la base de datos al iniciar la aplicación.
+
+**Pruebas realizadas:** se comprobó que los productos pueden registrarse, recuperarse, actualizarse y eliminarse, y que la información permanece almacenada en SQLite.
+
+## 7. Manejo de errores y reglas de negocio
+
+Products.API utiliza `IExceptionHandler` y `ProblemDetails` para centralizar el tratamiento de excepciones y devolver respuestas HTTP estructuradas.
+
+Los errores contemplados son:
+
+| Código | HTTP | Descripción |
+|---|---|---|
+| PRD-001 | 404 Not Found | Producto no encontrado |
+| PRD-002 | 400 Bad Request | Datos del producto inválidos |
+| PRD-003 | 409 Conflict | Producto duplicado por nombre y categoría |
+| PRD-004 | 409 Conflict | El producto tiene órdenes activas y no puede eliminarse |
+| PRD-005 | 500 Internal Server Error | Error interno del servidor |
+
+Las respuestas de error incluyen información como `errorCode`, `errorMessage` y `correlationId`, facilitando la identificación de los problemas.
+
+### PRD-001 — Producto no encontrado
+
+Cuando se intenta consultar, actualizar o eliminar un producto inexistente, el microservicio devuelve `404 Not Found`.
+
+### PRD-002 — Datos inválidos
+
+Al registrar o actualizar un producto, se validan los datos recibidos. Si no cumplen las restricciones establecidas, el servicio devuelve `400 Bad Request`.
+
+### PRD-003 — Producto duplicado
+
+Antes de registrar un producto, se verifica que no exista otro con el mismo nombre y categoría.
+
+Si se encuentra un producto duplicado, se devuelve `409 Conflict` con el código `PRD-003`.
+
+### PRD-004 — Producto asociado a órdenes activas
+
+Antes de eliminar un producto, Products.API consulta Orders.API para verificar si está asociado a una orden activa.
+
+Se consideran órdenes activas aquellas cuyo estado sea `Pendiente` o `Confirmada`.
+
+Si el producto pertenece a una orden activa, el microservicio impide su eliminación y devuelve:
+
+- **HTTP:** 409 Conflict.
+- **errorCode:** PRD-004.
+- **errorMessage:** El producto tiene órdenes activas y no puede eliminarse.
+
+Si el producto existe y no tiene órdenes activas, se permite su eliminación y se devuelve `204 No Content`.
+
+### PRD-005 — Error interno
+
+Los errores inesperados son procesados por el manejador global de excepciones, que devuelve `500 Internal Server Error`.
+
+## 8. Integración con Orders.API
+
+Products.API utiliza `HttpClient` para comunicarse con Orders.API mediante HTTP.
+
+Esta integración permite implementar la regla de negocio PRD-004 sin duplicar la información de las órdenes dentro de Products.API.
+
+**Proceso de eliminación:**
+
+1. Products.API verifica que el producto exista.
+2. Consulta `GET /api/orders`.
+3. Recorre las órdenes y sus productos.
+4. Comprueba si alguna orden contiene el producto y se encuentra en estado `Pendiente` o `Confirmada`.
+5. Si encuentra una orden activa, impide la eliminación y devuelve `409 Conflict` con el código `PRD-004`.
+6. Si no existen órdenes activas asociadas, elimina el producto y devuelve `204 No Content`.
+
+La dirección de Orders.API se obtiene mediante la configuración `Services:OrdersApiUrl` de Products.API, evitando escribir el puerto directamente en la lógica del servicio.
+
+## 9. Registro de eventos con Serilog
+
+Se implementó Serilog para registrar información sobre el funcionamiento del microservicio.
+
+Los registros se generan tanto en la consola como en archivos JSON dentro de la carpeta `logs`.
+
+Entre los datos registrados se encuentran:
+
+- Método HTTP y endpoint solicitado.
+- Código de respuesta.
+- Duración de la solicitud.
+- Identificador del servicio.
+- Correlation ID.
+
+**Pruebas realizadas:** se ejecutó `GET /api/products` desde Swagger y se comprobó que la consola y el archivo JSON registraron correctamente la solicitud, el código HTTP `200` y su duración.
+
+## 10. Correlation ID
+
+Se implementó el uso de Correlation ID para identificar y relacionar los registros correspondientes a una misma solicitud.
+
+El microservicio utiliza el encabezado `X-Correlation-Id`. Si la solicitud no contiene uno, genera automáticamente un identificador.
+
+Este identificador se incorpora a la respuesta HTTP y a los registros generados por Serilog.
+
+**Pruebas realizadas:** se verificó que el mismo Correlation ID aparece en los registros de inicio y finalización de una solicitud.
+
+La propagación del Correlation ID entre microservicios queda pendiente de una verificación específica de integración.
+
+## 11. Health Checks
+
+Products.API cuenta con tres endpoints de monitoreo:
+
+| Endpoint | Funcionalidad |
+|---|---|
+| `/health` | Informa el estado general del microservicio |
+| `/health/ready` | Expone el estado de disponibilidad configurado |
+| `/health/live` | Expone el estado de funcionamiento configurado |
+
+Los tres endpoints están configurados mediante el sistema de Health Checks de ASP.NET Core y devuelven información del estado en formato JSON.
+
+Actualmente utilizan comprobaciones básicas; no se configuró una verificación específica de conectividad con SQLite.
+
+**Pruebas realizadas:** se ejecutaron los endpoints de Health Checks y se verificaron sus respuestas.
+
+## 12. Documentación con Swagger
+
+Se configuró Swagger para facilitar la documentación y prueba de los endpoints.
+
+La interfaz permite visualizar las operaciones disponibles, los parámetros, los modelos de datos y los códigos de respuesta.
+
+También se incorporaron comentarios XML y ejemplos de respuestas exitosas y de error.
+
+**Swagger de Products.API:**
+
+`https://localhost:7223/swagger`
+
+**Pruebas realizadas:** se utilizaron los endpoints desde Swagger para comprobar las operaciones, las validaciones y los mensajes de error.
+
+## 13. Ejecución del microservicio
+
+Para ejecutar Products.API:
+
+1. Abrir la solución `Ecommerce` en Visual Studio.
+2. Seleccionar Products.API como proyecto de inicio.
+3. Ejecutar el proyecto utilizando el perfil HTTPS.
+4. Acceder a Swagger para consultar y probar los endpoints.
+
+Para probar la integración PRD-004, también debe estar ejecutándose Orders.API. Si se necesita crear una orden nueva, debe estar disponible Users.API para validar el usuario.
+
+**Direcciones utilizadas durante las pruebas locales:**
+
+| Microservicio | Dirección HTTPS |
+|---|---|
+| Products.API | `https://localhost:7223` |
+| Orders.API | `https://localhost:7176` |
+| Users.API | `https://localhost:7191` |
+
+Los puertos pueden variar según la configuración local de cada integrante.
+
+## 14. Pruebas funcionales realizadas
+
+Durante el desarrollo se realizaron pruebas de las principales funcionalidades de Products.API.
+
+| Funcionalidad | Resultado |
+|---|---|
+| Consulta de productos | Correcto |
+| Creación de productos | Correcto |
+| Actualización de productos | Correcto |
+| Eliminación de productos sin órdenes activas | Correcto |
+| Validaciones y errores implementados | Correcto |
+| Persistencia en SQLite | Correcto |
+| Health Checks | Correcto |
+| Documentación con Swagger | Correcto |
+| Registros de Serilog en consola | Correcto |
+| Registros de Serilog en archivos JSON | Correcto |
+| Correlation ID en los registros | Correcto |
+| PRD-004 con orden pendiente | Correcto |
+
+### Prueba de integración PRD-004
+
+Para verificar la regla PRD-004 se realizaron las siguientes operaciones:
+
+| Operación | Resultado obtenido |
+|---|---|
+| Consultar órdenes en Orders.API | 200 OK |
+| Consultar productos en Products.API | 200 OK |
+| Eliminar un producto sin órdenes activas | 204 No Content |
+| Registrar un usuario de prueba en Users.API | 201 Created |
+| Crear una orden en estado Pendiente | 201 Created |
+| Intentar eliminar el producto asociado a la orden | 409 Conflict — PRD-004 |
+| Consultar nuevamente el producto protegido | 200 OK |
+
+Durante la prueba se creó una orden `Pendiente` que contenía el producto Notebook Lenovo Prueba.
+
+Posteriormente, se intentó eliminar el producto mediante `DELETE /api/products/{id}`.
+
+El microservicio respondió con `409 Conflict`, el código `PRD-004` y el mensaje correspondiente.
+
+Finalmente, se consultó nuevamente el producto mediante `GET /api/products/{id}` y se obtuvo `200 OK`, confirmando que no había sido eliminado.
+
+**Resultado:** se verificó correctamente la integración entre Products.API y Orders.API para impedir la eliminación de productos asociados a órdenes pendientes.
+
+La validación con órdenes en estado `Confirmada` queda pendiente de una prueba específica.
+
+## 15. Estado de implementación
+
+Products.API cuenta con las operaciones de gestión de productos, persistencia SQLite, validaciones, manejo centralizado de errores, registros con Serilog, Correlation ID, Health Checks y documentación con Swagger.
+
+También se implementó la integración con Orders.API correspondiente a PRD-004 y se comprobó su funcionamiento con una orden en estado `Pendiente`.
+
+Las pruebas realizadas permitieron verificar tanto el funcionamiento independiente del microservicio como la regla de eliminación asociada a órdenes activas.
+
+
 # Cart.API
 
 Microservicio encargado de la gestión del carrito de compras de los usuarios. Permite consultar el carrito, agregar productos, actualizar sus cantidades y eliminar productos o el carrito completo.

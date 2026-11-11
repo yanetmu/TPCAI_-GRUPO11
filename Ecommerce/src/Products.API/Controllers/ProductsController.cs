@@ -1,4 +1,3 @@
-
 using Products.API.Exceptions;
 using Microsoft.AspNetCore.Mvc;
 using Products.API.models;
@@ -184,9 +183,10 @@ namespace Products.API.Controllers
         [ProducesResponseType(typeof(ErrorResponse), 404)]
         [ProducesResponseType(typeof(ErrorResponse), 409)]
         [ProducesResponseType(typeof(ErrorResponse), 500)]
-        public IActionResult Delete(Guid id)
+
+        public async Task<IActionResult> Delete(Guid id)
         {
-            bool eliminado = _productService.Eliminar(id);
+            bool eliminado = await _productService.Eliminar(id);
 
             if (!eliminado)
             {
@@ -195,6 +195,7 @@ namespace Products.API.Controllers
 
             return NoContent();
         }
+
     }
 }
 
