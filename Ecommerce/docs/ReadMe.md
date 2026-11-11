@@ -238,6 +238,7 @@ Durante el desarrollo se realizaron pruebas de las principales funcionalidades d
 | Registros de Serilog en archivos JSON | Correcto |
 | Correlation ID en los registros | Correcto |
 | PRD-004 con orden pendiente | Correcto |
+|PRD-004 con orden Confirmada | Correcto |
 
 ### Prueba de integración PRD-004
 
@@ -252,6 +253,8 @@ Para verificar la regla PRD-004 se realizaron las siguientes operaciones:
 | Crear una orden en estado Pendiente | 201 Created |
 | Intentar eliminar el producto asociado a la orden | 409 Conflict — PRD-004 |
 | Consultar nuevamente el producto protegido | 200 OK |
+| Actualizar el estado de la orden a Confirmada | 200 OK |
+| Intentar eliminar el producto con orden Confirmada | 409 Conflict — PRD-004 |
 
 Durante la prueba se creó una orden `Pendiente` que contenía el producto Notebook Lenovo Prueba.
 
@@ -263,7 +266,7 @@ Finalmente, se consultó nuevamente el producto mediante `GET /api/products/{id}
 
 **Resultado:** se verificó correctamente la integración entre Products.API y Orders.API para impedir la eliminación de productos asociados a órdenes pendientes.
 
-La validación con órdenes en estado `Confirmada` queda pendiente de una prueba específica.
+Se verificó correctamente la regla PRD-004 para órdenes en estado `Pendiente` y `Confirmada`. En ambos casos, Products.API devolvió `409 Conflict`, impidiendo la eliminación del producto asociado a la orden activa.
 
 ## 15. Estado de implementación
 
